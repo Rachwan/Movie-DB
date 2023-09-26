@@ -130,3 +130,26 @@ app.delete('/movies/delete/:ID', (rquest, respnse) => {
         respnse.json({status: 200, data:movies})
     }
 })
+
+// Create a route to update a movie
+app.put('movies/update/:ID', (request, response => {
+    const {ID} = express.request.params;
+    const {title: theNewTitle, year: theNewYear, rating: theNewRating} = express.request.query;
+    let movieToUpdate;
+    for(let m of movies) {
+        if(m.title === ID) {
+            movieToUpdate = m;
+            break;
+        }
+    }
+    if(movieToUpdate) {
+        if(theNewTitle) 
+            movieToUpdate.title = theNewTitle;
+        if(theNewYear) 
+            movieToUpdate.year = theNewYear;
+        if(theNewRating) 
+            movieToUpdate.rating = theNewRating;
+        response.json({status: 200, data: movies})
+    } else 
+        response.status(404).json({status: 404, error: true, message: `the movie "${ID}" does not exist`})
+}))
