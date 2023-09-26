@@ -146,9 +146,9 @@ app.put('movies/update/:ID', (request, response => {
         if(theNewTitle) 
             movieToUpdate.title = theNewTitle;
         if(theNewYear) 
-            movieToUpdate.year = theNewYear;
+            movieToUpdate.year = parseInt(theNewYear);
         if(theNewRating) 
-            movieToUpdate.rating = theNewRating;
+            movieToUpdate.rating = parseFloat(theNewRating);
         response.json({status: 200, data: movies})
     } else 
         response.status(404).json({status: 404, error: true, message: `the movie "${ID}" does not exist`})
