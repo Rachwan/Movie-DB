@@ -83,5 +83,20 @@ app.get('movies/read/by-title', (request, response) => {
     response.json({status: 200, data: moviesTitles})
 })
 
-// 
+// read the movie by ID
+app.get('/movies/read/id/:ID', (request, response) => {
+    const {ID} = request.params;
+
+    let movie = null;
+    for(let m of movies) {
+        if(m.title === ID) {
+            movie = m;
+            break;
+        }
+    }
+    if(movie)
+        response.json({status: 200, data: movie})
+    else
+        response.status(404).json({status:404, error:true, message:`The movie "${ID}" does not exist!`})
+})
 
