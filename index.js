@@ -57,3 +57,31 @@ const movies = [
     { title: 'Brazil', year: 1985, rating: 8 }, 
     { title: 'الإرهاب والكباب', year: 1992, rating: 6.2 } 
 ];
+
+// ordered or sorted by date
+app.get('movies/read/by-date', (request, response) => {
+    const moviesDates = movies.slice().sort((a, b) => a.year - b.year);
+    response.json({status: 200, data: moviesDates});
+})
+
+// ordered or sorted by rating
+app.get('movies/read/by-rating', (request, response) => {
+    const moviesRatings = movies.slice().sort((a, b) => a.rating - b.rating);
+    response.json({status: 200, data: moviesRatings});
+})
+
+// ordered or sorted by title
+app.get('movies/read/by-title', (request, response) => {
+    const moviesTitles = movies.slice().sort((a, b) => {
+        if(a.title < b.title) 
+            return -1;
+        else if (a.title > b.title) 
+            return 1;
+        else 
+            return 0;
+    })
+    response.json({status: 200, data: moviesTitles})
+})
+
+// 
+
