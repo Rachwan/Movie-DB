@@ -28,5 +28,5 @@ app.get('serach', (request, response) => {
     if(search) 
         response.json({status: 200, message: 'ok', data: search})
     else
-        response.json({status: 500, error: true, message: `You did not provide a search! You need to provide one.`})
+        response.status(500).json({status: 500, error: true, message: `You did not provide a search! You need to provide one.`})
 })
