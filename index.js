@@ -100,3 +100,15 @@ app.get('/movies/read/id/:ID', (request, response) => {
         response.status(404).json({status:404, error:true, message:`The movie "${ID}" does not exist!`})
 })
 
+// Create a route for adding a new movie
+app.post('/movies/add', (request, response) => {
+    const {title, year, rating} = request.query;
+    if(!title && !year && isNaN(year) && year.length !== 4) {
+        response.json({status: 403, error: true, message:'you cannot create a movie without providing a title and a year'})
+    }
+    
+    const rateValue = parseFloat(rating) || 4;
+    const theNewMovie = {title, year: parseInt(year), rating:rateValue};
+    movies.push(theNewMovie);
+    response.json({status: 200, data: movies})
+})
