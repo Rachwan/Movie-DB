@@ -112,3 +112,21 @@ app.post('/movies/add', (request, response) => {
     movies.push(theNewMovie);
     response.json({status: 200, data: movies})
 })
+
+// Create a route to delete a movie
+app.delete('/movies/delete/:ID', (rquest, respnse) => {
+    const {ID} = rquest.params;
+    let theIndexToDelete = -1;
+    for(let m of movies) {
+        if(m.title === ID) {
+            theIndexToDelete = i;
+            break;
+        }
+    }
+    if(theIndexToDelete === -1) {
+        respnse.status(404).json({status: 404, error: true, message: `the movie "${ID}" does not exist`})
+    } else {
+        movies.splice(theIndexToDelete, 1);
+        respnse.json({status: 200, data:movies})
+    }
+})
